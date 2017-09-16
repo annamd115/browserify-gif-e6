@@ -12,13 +12,13 @@ const errorFunction = () => {
 
 //when the Gif loads
 const whenGifsLoad = function (){
-	gifArray = JSON.parse(this.responsetText).gifs;
+	gifArray = JSON.parse(this.responseText).gifs;
 	//TO DO: Load categories
 	loadCategories(whenCategoriesLoad, errorFunction);
 };
 
 const whenCategoriesLoad = function(){
-	let categoryArray = JSON.parse(this.responsetText).categories;
+	let categoryArray = JSON.parse(this.responseText).categories;
 	// TO DO: Combine Arrays
 	combineArrays(categoryArray);
 };
@@ -27,7 +27,7 @@ const combineArrays = (categories) => {
 	categories.forEach((category) => {
 		gifArray.forEach((gif) => {
 			if (gif.category === category.id) {
-				gif.category.name = category.name;
+				gif.categoryName = category.name;
 				gif.categoryDataName = category.dataName;
 			}
 		});
@@ -43,7 +43,11 @@ const initializer = () => {
 };
 
 
-module.exports = initializer;
+const getGifs = () => {
+	return gifArray;
+};
+
+module.exports = {initializer, getGifs};
 
 
 
